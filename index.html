@@ -1,237 +1,326 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web Store Geser dengan Search</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .no-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-    .no-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zyy Portfolio</title>
+<style>
     body {
-      background: url('https://files.catbox.moe/90v598.jpg') no-repeat center center fixed;
-      background-size: cover;
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: black;
+        color: white;
+        overflow-x: hidden;
     }
-  </style>
-</head>
-<body class="bg-gray-900 bg-opacity-80 font-sans">
 
-  <!-- Header -->
-  <header class="bg-white bg-opacity-80 shadow-md sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-blue-600">Zyy Store</h1>
-      <nav>
-        <a href="#" class="text-gray-700 hover:text-blue-600 px-3">Home</a>
-        <a href="#" class="text-gray-700 hover:text-blue-600 px-3">Produk</a>
-        <a href="#" class="text-gray-700 hover:text-blue-600 px-3">Kontak</a>
-      </nav>
-    </div>
-  </header>
+    /* Background bintang bergerak */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0;
+        width: 200%; height: 200%;
+        background: url('https://www.transparenttextures.com/patterns/stardust.png');
+        animation: moveStars 30s linear infinite;
+        z-index: -1;
+        opacity: 0.6;
+    }
 
-  <!-- Search -->
-  <section class="max-w-6xl mx-auto px-4 py-4">
-    <input type="text" id="searchInput" placeholder="Cari produk..." class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring focus:ring-blue-200">
-  </section>
+    @keyframes moveStars {
+        from { transform: translate(0, 0); }
+        to { transform: translate(-50%, -50%); }
+    }
 
-  <!-- Section Produk Geser -->
-  <section class="max-w-6xl mx-auto px-4 py-8">
-    <h2 class="text-2xl font-bold mb-4 text-white">Produk Terbaru</h2>
-    <div id="productContainer" class="flex space-x-4 overflow-x-auto no-scrollbar pb-4">
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        /* Default untuk mobile/tablet */
+.home-section {
+  display: flex;
+  align-items: center; /* Tengah secara vertikal */
+  padding-top: 0;
+}
+        color: #00d8ff;
+        margin: 0;
+        text-shadow: 0 0 10px #00d8ff, 0 0 20px #00d8ff;
+        animation: glowText 2s ease-in-out infinite alternate;
+    }
 
-      <!-- Produk 1 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/3vr0uk.jpg" class="w-full h-48 object-cover" alt="Paid edit">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Paid Edit ( With Preset )</h3>
-          <p class="text-gray-600">Rp 15.000</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
-      
-      <!-- Produk 2 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/jzjux9.jpg" class="w-full h-48 object-cover" alt="Paid edit">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Jasa Creatmt Wa Fc</h3>
-          <p class="text-gray-600">Rp 5.000</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
-      
+    @keyframes glowText {
+        from { text-shadow: 0 0 10px #00d8ff; }
+        to { text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff; }
+    }
 
-      <!-- Produk 3 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/7p9rr3.jpg" class="w-full h-48 object-cover" alt="am prem">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Am Premium</h3>
-          <p class="text-gray-600">Rp 10.000</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
+    nav {
+        display: flex;
+        gap: 20px;
+    }
 
-      <!-- Produk 4 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/80de1v.jpg" class="w-full h-48 object-cover" alt="murban">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Murban</h3>
-          <p class="text-gray-600">Rp 25.000</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
+    nav a {
+        color: white;
+        text-decoration: none;
+        transition: 0.3s;
+    }
 
-      <!-- Produk 5 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/qefq9o.jpg" class="w-full h-48 object-cover" alt="Paid ban">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Paid Ban</h3>
-          <p class="text-gray-600">Rp 15.000</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
-      
-      <!-- Produk 6 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/0x87ve.jpg" class="w-full h-48 object-cover" alt="Panel bot">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Panel Bot 1GB-Unlimited</h3>
-          <p class="text-gray-600">Rp 2,000-12,000</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
-      
-       <!-- Produk 7 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/y87a6g.jpg" class="w-full h-48 object-cover" alt="SC Bot">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Sc Bot</h3>
-          <p class="text-gray-600">Rp Tanya Aja</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
-      
-      <!-- Produk 8 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/2uhv0l.jpg" class="w-full h-48 object-cover" alt="Resseler am prem">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Resseler Am Prem</h3>
-          <p class="text-gray-600">Rp 20,000</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
-      
-      <!-- Produk 8 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/qjagma.jpg" class="w-full h-48 object-cover" alt="Nokos Wa">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Nokos Wa All Country</h3>
-          <p class="text-gray-600">Rp Tanya</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
-      
-      <!-- Produk 9 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/nkj7aq.jpg" class="w-full h-48 object-cover" alt="Suntik All Sosmed">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Suntik All Sosmed</h3>
-          <p class="text-gray-600">Rp Tanya</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
-      
-      <!-- Produk 10 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/m06ky9.jpg" class="w-full h-48 object-cover" alt="partner">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Partner Zyy</h3>
-          <p class="text-gray-600">Rp 30,000</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
-      
-      <!-- Produk 11 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/w7h89d.jpg" class="w-full h-48 object-cover" alt="paid unban spam">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Paid unban spam</h3>
-          <p class="text-gray-600">Rp 15,000</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
-      
-      <!-- Produk 12 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/ttxefp.jpg" class="w-full h-48 object-cover" alt="paid unban permanen tinjau">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Paid unban permanen tinjau</h3>
-          <p class="text-gray-600">Rp 30,000</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
-      
-      <!-- Produk 13 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/kutk9m.jpg" class="w-full h-48 object-cover" alt="paid unban permanen fresh">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Paid unban permanen fresh</h3>
-          <p class="text-gray-600">Rp 50,000</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
-      
-      <!-- Produk 14 -->
-      <div class="product-card min-w-[200px] bg-white bg-opacity-90 rounded-lg shadow-md overflow-hidden">
-        <img src="https://files.catbox.moe/vif4cb.jpg" class="w-full h-48 object-cover" alt="paid unban permanen batu/hard">
-        <div class="p-4">
-          <h3 class="text-lg font-semibold">Paid unban permanen batu/hard</h3>
-          <p class="text-gray-600">Rp 80,000</p>
-          <a href="https://t.me/ZyyTsune" target="_blank" class="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Beli</a>
-        </div>
-      </div>
-      
+    nav a:hover {
+        color: #00d8ff;
+        text-shadow: 0 0 5px #00d8ff;
+    }
 
-    </div>
-  </section>
-  
- <!-- Section Donasi & Sosial Media -->
-  <section class="max-w-6xl mx-auto px-4 py-8 bg-white bg-opacity-90 rounded-lg shadow-lg mt-8">
-    <h2 class="text-2xl font-bold mb-4 text-center">💖 Dukung Kami</h2>
-    <p class="text-center text-gray-600 mb-6">Jika kamu suka produk kami, dukung kami lewat donasi atau ikuti di media sosial.</p>
-    <div class="flex flex-wrap justify-center gap-4">
+    /* Menu Button (Hamburger) */
+    .menu-btn {
+        font-size: 26px;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        display: none;
+        transition: transform 0.3s;
+    }
+    .menu-btn:hover {
+        transform: rotate(90deg);
+    }
 
-      <a href="https://saweria.co/igzyyajah" target="_blank" class="bg-yellow-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-yellow-600">💰 Donasi via Saweria</a>
-      <a href="https://www.youtube.com/@Zyy_Mode_Cool" target="_blank" class="bg-red-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-700">📺 YouTube</a>
-      <a href="tiktok.com/@newfourpreset" target="_blank" class="bg-black text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-800">🎵 TikTok</a>
-      <a href="https://t.me/ZyyTsune" target="_blank" class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600">📢 Telegram</a>
-      <a href="https://wa.me/6283121268868" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600">💬 WhatsApp</a>
+    /* Dropdown Menu Mobile */
+    .dropdown {
+        display: none;
+        position: absolute;
+        right: 20px;
+        top: 60px;
+        background-color: rgba(17, 17, 17, 0.95);
+        padding: 10px;
+        border-radius: 10px;
+        flex-direction: column;
+        gap: 10px;
+        box-shadow: 0 0 10px #00d8ff;
+    }
 
-    </div>
-  </section>
+    .dropdown a {
+        color: white;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+    .dropdown a:hover {
+        background: #00d8ff;
+        color: black;
+    }
 
-    </div>
-  </section>
+    .dropdown.show {
+        display: flex;
+        animation: fadeIn 0.3s ease-in-out;
+    }
 
-  <script>
-    const searchInput = document.getElementById('searchInput');
-    const productCards = document.querySelectorAll('.product-card');
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-    searchInput.addEventListener('input', function () {
-      const searchText = this.value.toLowerCase();
-      productCards.forEach(card => {
-        const title = card.querySelector('h3').textContent.toLowerCase();
-        if (title.includes(searchText)) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 90vh;
+        padding: 20px;
+    }
+
+    .card {
+        background: rgba(0, 20, 20, 0.85);
+        border-radius: 15px;
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        max-width: 900px;
+        width: 100%;
+        gap: 30px;
+        box-shadow: 0 0 20px rgba(0, 216, 255, 0.3);
+    }
+
+    .text {
+        flex: 1;
+    }
+
+    .text h2 {
+        font-size: 2.5em;
+        margin: 0 0 10px;
+    }
+
+    .typing {
+        color: #00d8ff;
+        font-size: 1.3em;
+        min-height: 30px;
+        border-right: 2px solid #00d8ff;
+        white-space: nowrap;
+        overflow: hidden;
+        animation: blinkCursor 0.8s infinite;
+    }
+
+    @keyframes blinkCursor {
+        0%, 50% { border-color: #00d8ff; }
+        51%, 100% { border-color: transparent; }
+    /* Khusus desktop */
+@media screen and (min-width: 1024px) {
+  .home-section {
+    align-items: flex-start; /* Naik ke atas */
+    padding-top: 40px; /* Atur jarak */
+  }
+}
+    }
+
+    .btn {
+        background: #00d8ff;
+        color: black;
+        padding: 10px 20px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 0 10px #00d8ff;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background: white;
+        box-shadow: 0 0 20px #00ffff;
+    }
+
+    .socials {
+        margin-top: 15px;
+    }
+
+    .socials a {
+        margin-right: 15px;
+        color: white;
+        font-size: 22px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .socials a:hover {
+        color: #00d8ff;
+        text-shadow: 0 0 10px #00d8ff;
+    }
+
+    .image {
+        flex: 0 0 auto;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid #00d8ff;
+        box-shadow: 0 0 15px #00d8ff;
+        animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* RESPONSIVE MOBILE */
+    @media (max-width: 768px) {
+        nav {
+            display: none;
         }
-      });
-    });
-  </script>
+        .menu-btn {
+            display: block;
+        <nav>
+    <a href="index.html">Home</a>
+    <a href="payment.html">Payment</a>
+    <a href="produk.html">Produk</a>
+    <a href="panel.html">Panel Bot</a>
+    <a href="about.html">About</a>
+</nav>
+            height: 180px;
+        }
+        .text h2 {
+            font-size: 2em;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Zyy Developer</h1>
+    <a href="index.html">Home</a>
+<a href="payment.html">Payment</a>
+<a href="produk.html">Produk</a>
+<a href="panel.html">Panel Bot</a>
+<a href="about.html">About</a>
+    </nav>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="dropdown" id="dropdownMenu">
+        <a href="#">Home</a>
+        <a href="#">Payment</a>
+        <a href="#">Produk</a>
+        <a href="#">Panel Bot</a>
+        <a href="#">About</a>
+    </div>
+</header>
+
+<div class="container">
+    <div class="card">
+        <div class="text">
+            <h2>Hi, I'm Zyy</h2>
+            <div class="typing" id="typingText"></div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ipsa distincta repudiandae architecto et iste quisquam rerum molestiae.</p>
+            <a href="#" class="btn">Hire me</a>
+            <div class="socials">
+                <a href="#">🐦</a>
+                <a href="#">💻</a>
+                <a href="#">🔗</a>
+                <a href="#">✉️</a>
+            </div>
+        </div>
+        <div class="image">
+            <img src="https://files.catbox.moe/epatnp.jpg" alt="Zyy Developer">
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleMenu() {
+        document.getElementById("dropdownMenu").classList.toggle("show");
+    }
+
+    const texts = ["I'm a Developer", "I'm a YouTuber", "I'm an Editor", "I'm a Designer"];
+    let count = 0;
+    let index = 0;
+    let currentText = '';
+    let letter = '';
+    const typingSpeed = 100;
+
+    function type() {
+        if (count === texts.length) {
+            count = 0;
+        }
+        currentText = texts[count];
+        letter = currentText.slice(0, ++index);
+
+        document.getElementById('typingText').textContent = letter;
+        if (letter.length === currentText.length) {
+            setTimeout(() => {
+                index = 0;
+                count++;
+                type();
+            }, 1500);
+        } else {
+            setTimeout(type, typingSpeed);
+        }
+    }
+
+    type();
+</script>
 
 </body>
-  </html>
+</html>

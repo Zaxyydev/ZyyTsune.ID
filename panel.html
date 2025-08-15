@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ZyyTsune | Panel Bot (Versi Beda)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b1220;
+      --card: #121a2b;
+      --muted: #a5b4c3;
+      --text: #eaf2ff;
+      --brand1: #34d399;   /* emerald */
+      --brand2: #06b6d4;   /* cyan */
+      --cta: #10b981;      /* button */
+      --cta-hover:#0ea5a6;
+      --ring: rgba(52,211,153,.35);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Poppins", system-ui, -apple-system, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% -10%, #0f1b2e 0%, var(--bg) 60%),
+                  radial-gradient(1200px 600px at 120% 0%, #06212a 0%, transparent 50%);
+      color: var(--text);
+      line-height: 1.6;
+      letter-spacing:.2px;
+    }
+
+    /* Topbar */
+    .hero{
+      position: relative;
+      padding: 48px 18px 36px;
+      text-align: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--brand1), var(--brand2));
+      -webkit-mask: linear-gradient(#000 85%, transparent);
+              mask: linear-gradient(#000 85%, transparent);
+    }
+    .hero h1{
+      margin:0 0 6px;
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 800;
+      letter-spacing:.5px;
+    }
+    .hero p{
+      margin:0;
+      font-size: clamp(14px, 2.5vw, 18px);
+      opacity:.95;
+    }
+
+    /* Toolbar */
+    .toolbar{
+      max-width: 1100px;
+      margin: -22px auto 14px;
+      padding: 0 16px;
+    }
+    .search{
+      display:flex;
+      gap:10px;
+      padding: 12px;
+      border-radius: 14px;
+      background: #0f182a;
+      box-shadow: 0 12px 30px -18px var(--ring);
+      border: 1px solid rgba(255,255,255,.05);
+    }
+    .search input{
+      flex:1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-size: 16px;
+      padding: 6px 4px;
+    }
+    .search button{
+      background: var(--cta);
+      color:#06131a;
+      font-weight:700;
+      border:none;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+    }
+    .search button:hover{ background: var(--cta-hover); }
+
+    /* Grid */
+    .wrap{
+      max-width: 1100px;
+      margin: 10px auto 40px;
+      padding: 0 16px 10px;
+    }
+    .grid{
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    /* Card */
+    .card{
+      position: relative;
+      background: linear-gradient(180deg, var(--card), #0f1726);
+      border: 1px solid rgba(255,255,255,.06);
+      box-shadow: 0 20px 40px -25px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.02) inset;
+      border-radius: 18px;
+      padding: 18px 16px 16px;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .card:hover{
+      transform: translateY(-3px);
+      border-color: rgba(52,211,153,.35);
+      box-shadow: 0 26px 60px -30px var(--ring);
+    }
+    .price-badge{
+      position:absolute;
+      top: 12px; right: 12px;
+      background: radial-gradient(140% 120% at 100% 0%, var(--brand2), var(--brand1));
+      color:#08181a;
+      font-weight:800;
+      font-size:14px;
+      padding:8px 10px;
+      border-radius: 12px;
+      box-shadow: 0 8px 18px -10px var(--ring);
+    }
+    .title{
+      display:flex; align-items:center; gap:10px;
+      margin:4px 0 2px;
+      font-weight:800; font-size:18px;
+      letter-spacing:.3px;
+    }
+    .title svg{opacity:.85}
+    .spec{
+      margin: 8px 0 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    ul.features{
+      margin: 0 0 12px 0;
+      padding: 0 0 0 18px;
+      font-size: 14px;
+    }
+    .cta{
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .cta a{
+      display:inline-block;
+      text-decoration:none;
+      font-weight:700;
+      background: linear-gradient(135deg, var(--brand1), var(--brand2));
+      color:#06131a;
+      padding: 12px 16px;
+      border-radius: 12px;
+      box-shadow: 0 10px 24px -14px var(--ring);
+      transition: transform .15s ease, filter .15s ease;
+    }
+    .cta a:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+
+    /* Footer */
+    footer{
+      text-align:center;
+      padding:28px 16px 36px;
+      color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,.06);
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,.2));
+    }
+    footer strong, footer a{ color: var(--text); text-decoration:none; }
+
+    /* Small helper */
+    .hidden{ display:none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>ZyyTsune Panel</h1>
+    <p>Store Website • Ready Hosting, Bot Pushkontak, SC Bot, dan lainnya</p>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="search">
+      <input id="q" type="text" placeholder="Cari paket… contoh: 3GB / unlimited / reseller" />
+      <button id="clearBtn" type="button">Clear</button>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <main class="wrap">
+    <div id="grid" class="grid">
+
+      <!-- 1GB -->
+      <article class="card" data-keywords="1gb 30 hari ram1gb cpu30">
+        <div class="price-badge">Rp 2.000</div>
+        <div class="title">
+          <!-- icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          PANEL BOT 1GB
+        </div>
+        <p class="spec">Masa aktif 30 hari • RAM 1GB • CPU 30%</p>
+        <ul class="features">
+          <li>Garansi 15 hari</li>
+          <li>Server privat</li>
+        </ul>
+        <div class="cta">
+          <a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a>
+        </div>
+      </article>
+
+      <!-- 2GB -->
+      <article class="card" data-keywords="2gb 50 hari ram2gb cpu40">
+        <div class="price-badge">Rp 3.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="2"/><path d="M8 10h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          PANEL BOT 2GB
+        </div>
+        <p class="spec">Masa aktif 30 hari • RAM 2GB • CPU 40%</p>
+        <ul class="features">
+          <li>Garansi 15 hari</li>
+          <li>Server privat</li>
+        </ul>
+        <div class="cta">
+          <a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a>
+        </div>
+      </article>
+
+      <!-- 3GB -->
+      <article class="card" data-keywords="3gb 30 hari ram3gb cpu70">
+        <div class="price-badge">Rp 4.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          PANEL BOT 3GB
+        </div>
+        <p class="spec">Masa aktif 30 hari • RAM 3GB • CPU 70%</p>
+        <ul class="features">
+          <li>Garansi 15 hari</li>
+          <li>Server privat</li>
+        </ul>
+        <div class="cta">
+          <a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a>
+        </div>
+      </article>
+
+      <!-- 4–10GB (contoh 4 & 6 ditampilkan, lainnya bisa diduplikat) -->
+      <article class="card" data-keywords="4gb 30 hari ram4gb cpu90">
+        <div class="price-badge">Rp 5.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 8h18M6 8v10m6-10v10m6-10v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          PANEL BOT 4GB
+        </div>
+        <p class="spec">Masa aktif 30 hari • RAM 4GB • CPU 90%</p>
+        <ul class="features"><li>Garansi 15 hari</li><li>Server privat</li></ul>
+        <div class="cta"><a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a></div>
+      </article>
+      
+            <article class="card" data-keywords="4gb 30 hari ram6gb cpu110">
+        <div class="price-badge">Rp 6.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 8h18M6 8v10m6-10v10m6-10v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          PANEL BOT 5GB
+        </div>
+        <p class="spec">Masa aktif 30 hari • RAM 5GB • CPU 110%</p>
+        <ul class="features"><li>Garansi 15 hari</li><li>Server privat</li></ul>
+        <div class="cta"><a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a></div>
+      </article>
+
+      <article class="card" data-keywords="6gb 30 hari ram6gb cpu125">
+        <div class="price-badge">Rp 7.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 5h14v14H5z" stroke="currentColor" stroke-width="2"/><path d="M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          PANEL BOT 6GB
+        </div>
+        <p class="spec">Masa aktif 30 hari • RAM 6GB • CPU 125%</p>
+        <ul class="features"><li>Garansi 15 hari</li><li>Server privat</li></ul>
+        <div class="cta"><a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a></div>
+      </article>
+      
+      <article class="card" data-keywords="7gb 30 hari ram7gb cpu150">
+        <div class="price-badge">Rp 8.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 8h18M6 8v10m6-10v10m6-10v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          PANEL BOT 7GB
+        </div>
+        <p class="spec">Masa aktif 30 hari • RAM 7GB • CPU 150%</p>
+        <ul class="features"><li>Garansi 15 hari</li><li>Server privat</li></ul>
+        <div class="cta"><a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a></div>
+      </article>
+
+      <article class="card" data-keywords="8gb 30 hari ram8gb cpu170">
+        <div class="price-badge">Rp 9.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 8h18M6 8v10m6-10v10m6-10v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          PANEL BOT 8GB
+        </div>
+        <p class="spec">Masa aktif 30 hari • RAM 8GB • CPU 170%</p>
+        <ul class="features"><li>Garansi 15 hari</li><li>Server privat</li></ul>
+        <div class="cta"><a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a></div>
+      </article>
+      
+            <article class="card" data-keywords="9gb 30 hari ram9gb cpu180">
+        <div class="price-badge">Rp 10.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 8h18M6 8v10m6-10v10m6-10v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          PANEL BOT 9GB
+        </div>
+        <p class="spec">Masa aktif 30 hari • RAM 9GB • CPU 170%</p>
+        <ul class="features"><li>Garansi 15 hari</li><li>Server privat</li></ul>
+        <div class="cta"><a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a></div>
+      </article>
+      
+            <article class="card" data-keywords="10gb 30 hari ram10gb cpu200">
+        <div class="price-badge">Rp 11.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 8h18M6 8v10m6-10v10m6-10v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          PANEL BOT 10GB
+        </div>
+        <p class="spec">Masa aktif 30 hari • RAM 10GB • CPU 200%</p>
+        <ul class="features"><li>Garansi 15 hari</li><li>Server privat</li></ul>
+        <div class="cta"><a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a></div>
+      </article>
+      <!-- Unlimited -->
+      <article class="card" data-keywords="unlimited 30 hari tanpa batas">
+        <div class="price-badge">Rp 12.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 12c2-4 8-4 10 0-2 4-8 4-10 0Z" stroke="currentColor" stroke-width="2"/></svg>
+          PANEL BOT UNLIMITED
+        </div>
+        <p class="spec">Masa aktif 30 hari • RAM Unlimited</p>
+        <ul class="features"><li>Garansi 15 hari</li><li>Server privat</li></ul>
+        <div class="cta"><a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a></div>
+      </article>
+
+      <!-- Reseller / Admin / PT / Owner -->
+      <article class="card" data-keywords="reseller jual panel bisnis">
+        <div class="price-badge">Rp 10.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h12M4 17h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          RESELLER PANEL
+        </div>
+        <p class="spec">Bisa open jual panel • Auto balik modal*</p>
+        <ul class="features"><li>Akses reseller</li><li>Materi basic</li></ul>
+        <div class="cta"><a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a></div>
+      </article>
+
+      <article class="card" data-keywords="admin panel kelola reseller">
+        <div class="price-badge">Rp 15.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          ADMIN PANEL
+        </div>
+        <p class="spec">Kelola reseller & slot panel</p>
+        <ul class="features"><li>Akses admin</li><li>Open reseller</li></ul>
+        <div class="cta"><a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a></div>
+      </article>
+
+      <article class="card" data-keywords="pt panel tingkat lanjut">
+        <div class="price-badge">Rp 20.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 18V6h12v12z" stroke="currentColor" stroke-width="2"/><path d="M9 9h6v6H9z" fill="currentColor" opacity=".2"/></svg>
+          PT PANEL
+        </div>
+        <p class="spec">Open admin & reseller</p>
+        <ul class="features"><li>Akses PT</li><li>Jual panel</li></ul>
+        <div class="cta"><a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a></div>
+      </article>
+
+      <article class="card" data-keywords="owner panel full akses">
+        <div class="price-badge">Rp 25.000</div>
+        <div class="title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6-5.5-3-5.5 3 1-6L3 8.9 9 8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          OWNER PANEL
+        </div>
+        <p class="spec">Full akses • Open PT, Admin, Reseller</p>
+        <ul class="features"><li>Akses penuh</li><li>Jual panel bebas</li></ul>
+        <div class="cta"><a href="https://t.me/ZyyTsune" target="_blank" rel="noopener">BELI</a></div>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    <div><strong>Location:</strong> West Java, Indonesia • <strong>Email:</strong> igzyyajah@gmail.com</div>
+    <div>© 2025 <strong>ZyyTsune</strong>. All Rights Reserved • Designed by <a href="https://www.youtube.com/Zyy_Mode_Cool" target="_blank" rel="noopener">ZyyTsune</a></div>
+  </footer>
+
+  <script>
+    // Simple search filter
+    const q = document.getElementById('q');
+    const clearBtn = document.getElementById('clearBtn');
+    const cards = [...document.querySelectorAll('.card')];
+
+    function filter(){
+      const term = q.value.toLowerCase().trim();
+      cards.forEach(c=>{
+        const text = (c.textContent + ' ' + (c.dataset.keywords||'')).toLowerCase();
+        c.classList.toggle('hidden', term && !text.includes(term));
+      });
+    }
+    q.addEventListener('input', filter);
+    clearBtn.addEventListener('click', ()=>{ q.value=''; filter(); });
+  </script>
+</body>
+</html>
