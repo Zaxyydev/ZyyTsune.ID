@@ -5,22 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zyy Portfolio</title>
 <style>
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background: black;
-        color: white;
-        overflow-x: hidden;
+    :root {
+        --primary-color: #00d8ff;
+        --secondary-color: #00ffff;
     }
 
-    /* Background bintang bergerak */
-    body::before {
-        content: "";
+    /* Reset CSS */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: #000;
+        color: #fff;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    /* Background bintang */
+    .stars-bg {
         position: fixed;
-        top: 0; left: 0;
-        width: 200%; height: 200%;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
         background: url('https://www.transparenttextures.com/patterns/stardust.png');
-        animation: moveStars 30s linear infinite;
+        animation: moveStars 60s linear infinite;
         z-index: -1;
         opacity: 0.6;
     }
@@ -30,296 +44,411 @@
         to { transform: translate(-50%, -50%); }
     }
 
+    /* Header Section */
     header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px 30px;
+        padding: 1rem 2rem;
         background-color: rgba(0, 0, 0, 0.8);
         backdrop-filter: blur(5px);
-        /* Default untuk mobile/tablet */
-.home-section {
-  display: flex;
-  align-items: center; /* Tengah secara vertikal */
-  padding-top: 0;
-}
-        color: #00d8ff;
-        margin: 0;
-        text-shadow: 0 0 10px #00d8ff, 0 0 20px #00d8ff;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .logo {
+        color: var(--primary-color);
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
         animation: glowText 2s ease-in-out infinite alternate;
     }
 
     @keyframes glowText {
-        from { text-shadow: 0 0 10px #00d8ff; }
-        to { text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff; }
+        from { text-shadow: 0 0 10px var(--primary-color); }
+        to { text-shadow: 0 0 20px var(--secondary-color), 0 0 30px var(--secondary-color); }
     }
 
-    nav {
+    /* Navigation */
+    .desktop-nav {
         display: flex;
-        gap: 20px;
+        gap: 1.5rem;
     }
 
-    nav a {
-        color: white;
+    .desktop-nav a {
+        color: #fff;
         text-decoration: none;
-        transition: 0.3s;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        position: relative;
+        padding: 0.5rem 0;
     }
 
-    nav a:hover {
-        color: #00d8ff;
-        text-shadow: 0 0 5px #00d8ff;
+    .desktop-nav a:hover {
+        color: var(--primary-color);
     }
 
-    /* Menu Button (Hamburger) */
+    .desktop-nav a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-color);
+        transition: width 0.3s ease;
+    }
+
+    .desktop-nav a:hover::after {
+        width: 100%;
+    }
+
+    /* Mobile Navigation */
     .menu-btn {
-        font-size: 26px;
+        font-size: 1.5rem;
         background: none;
         border: none;
-        color: white;
+        color: #fff;
         cursor: pointer;
         display: none;
-        transition: transform 0.3s;
-    }
-    .menu-btn:hover {
-        transform: rotate(90deg);
+        transition: all 0.3s ease;
+        z-index: 101;
     }
 
-    /* Dropdown Menu Mobile */
-    .dropdown {
-        display: none;
-        position: absolute;
-        right: 20px;
-        top: 60px;
-        background-color: rgba(17, 17, 17, 0.95);
-        padding: 10px;
-        border-radius: 10px;
-        flex-direction: column;
-        gap: 10px;
-        box-shadow: 0 0 10px #00d8ff;
-    }
-
-    .dropdown a {
-        color: white;
-        text-decoration: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-        transition: background 0.3s;
-    }
-    .dropdown a:hover {
-        background: #00d8ff;
-        color: black;
-    }
-
-    .dropdown.show {
+    .dropdown-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
         display: flex;
-        animation: fadeIn 0.3s ease-in-out;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 5rem 2rem;
+        transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+        z-index: 100;
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+    .dropdown-menu.active {
+        right: 0;
     }
 
+    .dropdown-menu a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+    }
+
+    .dropdown-menu a:hover {
+        background: rgba(0, 216, 255, 0.1);
+        color: var(--primary-color);
+    }
+
+    /* Main Content */
     .container {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 90vh;
-        padding: 20px;
+        min-height: calc(100vh - 72px);
+        padding: 2rem;
     }
 
-    .card {
+    .profile-card {
         background: rgba(0, 20, 20, 0.85);
-        border-radius: 15px;
-        padding: 30px;
+        border-radius: 20px;
+        padding: 2.5rem;
         display: flex;
         align-items: center;
-        max-width: 900px;
+        max-width: 1000px;
         width: 100%;
-        gap: 30px;
-        box-shadow: 0 0 20px rgba(0, 216, 255, 0.3);
+        gap: 3rem;
+        box-shadow: 0 0 30px rgba(0, 216, 255, 0.3);
+        border: 1px solid rgba(0, 216, 255, 0.2);
     }
 
-    .text {
+    .profile-content {
         flex: 1;
     }
 
-    .text h2 {
-        font-size: 2.5em;
-        margin: 0 0 10px;
+    .profile-content h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #fff;
     }
 
-    .typing {
-        color: #00d8ff;
-        font-size: 1.3em;
-        min-height: 30px;
-        border-right: 2px solid #00d8ff;
+    .typing-effect {
+        color: var(--primary-color);
+        font-size: 1.3rem;
+        height: 1.8rem;
+        border-right: 2px solid var(--primary-color);
         white-space: nowrap;
         overflow: hidden;
+        margin-bottom: 1.5rem;
         animation: blinkCursor 0.8s infinite;
     }
 
     @keyframes blinkCursor {
-        0%, 50% { border-color: #00d8ff; }
+        0%, 50% { border-color: var(--primary-color); }
         51%, 100% { border-color: transparent; }
-    /* Khusus desktop */
-@media screen and (min-width: 1024px) {
-  .home-section {
-    align-items: flex-start; /* Naik ke atas */
-    padding-top: 40px; /* Atur jarak */
-  }
-}
+    }
+
+    .profile-content p {
+        margin-bottom: 1.8rem;
+        line-height: 1.6;
+        color: #ccc;
     }
 
     .btn {
-        background: #00d8ff;
-        color: black;
-        padding: 10px 20px;
-        border-radius: 25px;
+        display: inline-block;
+        background: var(--primary-color);
+        color: #000;
+        padding: 0.8rem 1.8rem;
+        border-radius: 30px;
         text-decoration: none;
         font-weight: bold;
-        box-shadow: 0 0 10px #00d8ff;
-        transition: 0.3s;
+        box-shadow: 0 0 10px var(--primary-color);
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
     }
 
     .btn:hover {
-        background: white;
-        box-shadow: 0 0 20px #00ffff;
+        background: #fff;
+        box-shadow: 0 0 20px var(--secondary-color);
+        transform: translateY(-2px);
     }
 
-    .socials {
-        margin-top: 15px;
+    .social-links {
+        display: flex;
+        gap: 1.2rem;
     }
 
-    .socials a {
-        margin-right: 15px;
-        color: white;
-        font-size: 22px;
+    .social-links a {
+        color: #fff;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
         text-decoration: none;
-        transition: 0.3s;
     }
 
-    .socials a:hover {
-        color: #00d8ff;
-        text-shadow: 0 0 10px #00d8ff;
+    .social-links a:hover {
+        color: var(--primary-color);
+        transform: translateY(-3px);
     }
 
-    .image {
+    .profile-image {
         flex: 0 0 auto;
-        width: 200px;
-        height: 200px;
+        width: 250px;
+        height: 250px;
         border-radius: 50%;
         overflow: hidden;
-        border: 3px solid #00d8ff;
-        box-shadow: 0 0 15px #00d8ff;
-        animation: float 4s ease-in-out infinite;
+        border: 3px solid var(--primary-color);
+        box-shadow: 0 0 25px var(--primary-color);
+        position: relative;
+        animation: float 6s ease-in-out infinite;
     }
 
     @keyframes float {
         0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
+        50% { transform: translateY(-15px); }
     }
 
-    .image img {
+    .profile-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: all 0.5s ease;
     }
 
-    /* RESPONSIVE MOBILE */
+    .profile-image:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .profile-card {
+            flex-direction: column-reverse;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .profile-content {
+            margin-top: 2rem;
+        }
+        
+        .social-links {
+            justify-content: center;
+        }
+    }
+
     @media (max-width: 768px) {
-        nav {
+        .desktop-nav {
             display: none;
         }
+        
         .menu-btn {
             display: block;
-        <nav>
-    <a href="index.html">Home</a>
-    <a href="payment.html">Payment</a>
-    <a href="produk.html">Produk</a>
-    <a href="panel.html">Panel Bot</a>
-    <a href="about.html">About</a>
-</nav>
-            height: 180px;
         }
-        .text h2 {
-            font-size: 2em;
+        
+        .profile-card {
+            padding: 1.5rem;
+        }
+        
+        .profile-image {
+            width: 200px;
+            height: 200px;
+        }
+        
+        .profile-content h1 {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        header {
+            padding: 1rem;
+        }
+        
+        .dropdown-menu {
+            width: 80%;
+        }
+        
+        .profile-image {
+            width: 180px;
+            height: 180px;
         }
     }
 </style>
 </head>
 <body>
 
+<div class="stars-bg"></div>
+
 <header>
-    <h1>Zyy Developer</h1>
-    <a href="index.html">Home</a>
-<a href="payment.html">Payment</a>
-<a href="produk.html">Produk</a>
-<a href="panel.html">Panel Bot</a>
-<a href="about.html">About</a>
+    <div class="logo">Zyy Developer</div>
+    <nav class="desktop-nav">
+        <a href="index.html">Home</a>
+        <a href="payment.html">Payment</a>
+        <a href="produk.html">Produk</a>
+        <a href="panel.html">Panel Bot</a>
+        <a href="about.html">About</a>
     </nav>
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
-    <div class="dropdown" id="dropdownMenu">
-        <a href="#">Home</a>
-        <a href="#">Payment</a>
-        <a href="#">Produk</a>
-        <a href="#">Panel Bot</a>
-        <a href="#">About</a>
+    <button class="menu-btn" id="menuToggle">☰</button>
+    <div class="dropdown-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="payment.html">Payment</a>
+        <a href="produk.html">Produk</a>
+        <a href="panel.html">Panel Bot</a>
+        <a href="about.html">About</a>
     </div>
 </header>
 
 <div class="container">
-    <div class="card">
-        <div class="text">
-            <h2>Hi, I'm Zyy</h2>
-            <div class="typing" id="typingText"></div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit ipsa distincta repudiandae architecto et iste quisquam rerum molestiae.</p>
-            <a href="#" class="btn">Hire me</a>
-            <div class="socials">
-                <a href="#">🐦</a>
-                <a href="#">💻</a>
-                <a href="#">🔗</a>
-                <a href="#">✉️</a>
+    <div class="profile-card">
+        <div class="profile-content">
+            <h1>Hi, I'm Zyy</h1>
+            <div class="typing-effect" id="typingText"></div>
+            <p>Professional developer specializing in web applications and automation tools. With years of experience creating high-performance solutions for clients worldwide.</p>
+            <a href="#" class="btn">Hire Me</a>
+            <div class="social-links">
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Github"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
-        <div class="image">
-            <img src="https://files.catbox.moe/epatnp.jpg" alt="Zyy Developer">
+        <div class="profile-image">
+            <img src="https://files.catbox.moe/jevoog.jpg" alt="Zyy Developer Portrait - Asian male developer smiling in professional attire">
         </div>
     </div>
 </div>
 
-<script>
-    function toggleMenu() {
-        document.getElementById("dropdownMenu").classList.toggle("show");
-    }
+<!-- Font Awesome for icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-    const texts = ["I'm a Developer", "I'm a YouTuber", "I'm an Editor", "I'm a Designer"];
+<script>
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+        menuToggle.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
+    });
+
+    // Typing Effect
+    const texts = ["Web Developer", "Bot Creator", "UI/UX Designer", "Problem Solver"];
     let count = 0;
     let index = 0;
     let currentText = '';
     let letter = '';
-    const typingSpeed = 100;
-
+    let isDeleting = false;
+    let typingSpeed = 100;
+    
     function type() {
         if (count === texts.length) {
             count = 0;
         }
+        
         currentText = texts[count];
-        letter = currentText.slice(0, ++index);
-
-        document.getElementById('typingText').textContent = letter;
-        if (letter.length === currentText.length) {
-            setTimeout(() => {
-                index = 0;
-                count++;
-                type();
-            }, 1500);
+        
+        if (isDeleting) {
+            letter = currentText.substring(0, index - 1);
+            index--;
+            typingSpeed = 50;
         } else {
-            setTimeout(type, typingSpeed);
+            letter = currentText.substring(0, index + 1);
+            index++;
+            typingSpeed = 100;
         }
+        
+        document.getElementById('typingText').textContent = letter;
+        
+        if (!isDeleting && letter === currentText) {
+            isDeleting = true;
+            typingSpeed = 1500;
+        } else if (isDeleting && letter === '') {
+            isDeleting = false;
+            count++;
+            typingSpeed = 500;
+        }
+        
+        setTimeout(type, typingSpeed);
     }
-
-    type();
+    
+    // Start typing effect
+    document.addEventListener('DOMContentLoaded', type);
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    menuToggle.textContent = '☰';
+                }
+            }
+        });
+    });
 </script>
 
 </body>
