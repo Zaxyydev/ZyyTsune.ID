@@ -7,14 +7,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Blink effect */
-    .blink {
-      animation: blink 1.5s infinite;
-    }
-    @keyframes blink {
-      0% { opacity: 1; }
-      50% { opacity: 0.3; }
-      100% { opacity: 1; }
-    }
+    .blink { animation: blink 1.5s infinite; }
+    @keyframes blink { 0% { opacity:1 } 50% { opacity:0.3 } 100% { opacity:1 } }
 
     /* Loader animasi lingkaran */
     .loader {
@@ -25,44 +19,12 @@
       height: 60px;
       animation: spin 1s linear infinite;
     }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+    @keyframes spin { 0% { transform: rotate(0deg) } 100% { transform: rotate(360deg) } }
 
     /* Animasi fade in */
-    .fade-in {
-      animation: fadeIn 1s ease-in forwards;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Smooth scroll */
-    html {
-      scroll-behavior: smooth;
-    }
+    .fade-in { animation: fadeIn 1s ease-in forwards; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(20px) } to { opacity:1; transform:translateY(0) } }
   </style>
-  <script>
-    // Loading screen
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        document.getElementById("loadingScreen").style.display = "none";
-        document.getElementById("mainContent").classList.remove("hidden");
-        document.getElementById("mainContent").classList.add("fade-in");
-      }, 2000); // 2 detik loading
-    });
-
-    // Toggle burger menu
-    function toggleMenu() {
-      const menu = document.getElementById('mobileMenu');
-      menu.classList.toggle('hidden');
-      if (!menu.classList.contains('hidden')) {
-        menu.classList.add("fade-in");
-      }
-    }
-  </script>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -82,26 +44,26 @@
 
         <!-- Menu Desktop -->
         <nav class="hidden md:flex space-x-8 font-semibold">
-          <a href="#index" class="hover:text-blue-500">Home</a>
-          <a href="#produk" class="hover:text-blue-500">Produk</a>
-          <a href="#payment" class="hover:text-blue-500">Payment</a>
-          <a href="#panel" class="hover:text-blue-500">Panel</a>
+          <a href="#index" class="hover:text-blue-500 scroll-link">Home</a>
+          <a href="#produk" class="hover:text-blue-500 scroll-link">Produk</a>
+          <a href="#payment" class="hover:text-blue-500 scroll-link">Payment</a>
+          <a href="#panel" class="hover:text-blue-500 scroll-link">Panel</a>
         </nav>
 
         <!-- Burger Menu -->
         <button class="md:hidden focus:outline-none" onclick="toggleMenu()">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
         </button>
       </div>
 
       <!-- Mobile Menu -->
       <div id="mobileMenu" class="md:hidden hidden bg-white border-t shadow-md text-center">
-        <a href="#index" class="block py-4 font-semibold hover:bg-gray-100">Home</a>
-        <a href="#produk" class="block py-4 font-semibold hover:bg-gray-100">Produk</a>
-        <a href="#payment" class="block py-4 font-semibold hover:bg-gray-100">Payment</a>
-        <a href="#panel" class="block py-4 font-semibold hover:bg-gray-100">Panel</a>
+        <a href="#index" class="block py-4 font-semibold hover:bg-gray-100 scroll-link">Home</a>
+        <a href="#produk" class="block py-4 font-semibold hover:bg-gray-100 scroll-link">Produk</a>
+        <a href="#payment" class="block py-4 font-semibold hover:bg-gray-100 scroll-link">Payment</a>
+        <a href="#panel" class="block py-4 font-semibold hover:bg-gray-100 scroll-link">Panel</a>
       </div>
     </header>
 
@@ -120,29 +82,29 @@
 
     <!-- Artikel -->
     <main class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
-      <article id="produk" class="bg-white rounded-2xl shadow hover:shadow-xl transition p-5">
+      <article class="bg-white rounded-2xl shadow hover:shadow-xl transition p-5">
         <img src="https://files.catbox.moe/beuw4s.jpg" class="rounded-xl mb-4" alt="Artikel 1">
         <h3 class="text-xl font-bold">Produk</h3>
         <p class="text-gray-600 mt-2">Semua Produk Yang Di Jual</p>
-        <a href="#produk">
+        <a href="produk.html">
           <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Lihat</button>
         </a>
       </article>
 
-      <article id="panel" class="bg-white rounded-2xl shadow hover:shadow-xl transition p-5">
+      <article class="bg-white rounded-2xl shadow hover:shadow-xl transition p-5">
         <img src="https://files.catbox.moe/1lgywj.jpg" class="rounded-xl mb-4" alt="Artikel 2">
         <h3 class="text-xl font-bold">Panel Bot</h3>
         <p class="text-gray-600 mt-2">Panel.Pteroductly Yang murah meriah</p>
-        <a href="#panel">
+        <a href="index.html">
           <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Lihat</button>
         </a>
       </article>
 
-      <article id="payment" class="bg-white rounded-2xl shadow hover:shadow-xl transition p-5">
+      <article class="bg-white rounded-2xl shadow hover:shadow-xl transition p-5">
         <img src="https://files.catbox.moe/26qbz3.jpg" class="rounded-xl mb-4" alt="Artikel 3">
         <h3 class="text-xl font-bold">Payment</h3>
         <p class="text-gray-600 mt-2">Web Payment Simple</p>
-        <a href="#payment">
+        <a href="paymen.html">
           <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Lihat</button>
         </a>
       </article>
@@ -154,5 +116,35 @@
     </footer>
 
   </div>
+
+  <script>
+    // Loading screen
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loadingScreen").style.display = "none";
+        document.getElementById("mainContent").classList.remove("hidden");
+        document.getElementById("mainContent").classList.add("fade-in");
+      }, 2000);
+    });
+
+    // Toggle burger menu
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+      if (!menu.classList.contains('hidden')) menu.classList.add("fade-in");
+    }
+
+    // Scroll animasi halus custom untuk menu
+    document.querySelectorAll('.scroll-link').forEach(link => {
+      link.addEventListener('click', function(e){
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Tutup mobile menu jika terbuka
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+      });
+    });
+  </script>
 </body>
 </html>  
