@@ -1,455 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zyy Portfolio</title>
-<style>
-    :root {
-        --primary-color: #00d8ff;
-        --secondary-color: #00ffff;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZyyTsuneID Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Blink effect */
+    .blink {
+      animation: blink 1.5s infinite;
+    }
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0.3; }
+      100% { opacity: 1; }
     }
 
-    /* Reset CSS */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+    /* Loader animasi lingkaran */
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #2563eb;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
-    body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        background: #000;
-        color: #fff;
-        overflow-x: hidden;
-        min-height: 100vh;
-        position: relative;
+    /* Animasi fade in */
+    .fade-in {
+      animation: fadeIn 1s ease-in forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Background bintang */
-    .stars-bg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: url('https://www.transparenttextures.com/patterns/stardust.png');
-        animation: moveStars 60s linear infinite;
-        z-index: -1;
-        opacity: 0.6;
+    /* Smooth scroll */
+    html {
+      scroll-behavior: smooth;
     }
+  </style>
+  <script>
+    // Loading screen
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loadingScreen").style.display = "none";
+        document.getElementById("mainContent").classList.remove("hidden");
+        document.getElementById("mainContent").classList.add("fade-in");
+      }, 2000); // 2 detik loading
+    });
 
-    @keyframes moveStars {
-        from { transform: translate(0, 0); }
-        to { transform: translate(-50%, -50%); }
+    // Toggle burger menu
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+      if (!menu.classList.contains('hidden')) {
+        menu.classList.add("fade-in");
+      }
     }
-
-    /* Header Section */
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 2rem;
-        background-color: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(5px);
-        position: sticky;
-        top: 0;
-        z-index: 100;
-    }
-
-    .logo {
-        color: var(--primary-color);
-        font-size: 1.5rem;
-        font-weight: bold;
-        text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
-        animation: glowText 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glowText {
-        from { text-shadow: 0 0 10px var(--primary-color); }
-        to { text-shadow: 0 0 20px var(--secondary-color), 0 0 30px var(--secondary-color); }
-    }
-
-    /* Navigation */
-    .desktop-nav {
-        display: flex;
-        gap: 1.5rem;
-    }
-
-    .desktop-nav a {
-        color: #fff;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        font-weight: 500;
-        position: relative;
-        padding: 0.5rem 0;
-    }
-
-    .desktop-nav a:hover {
-        color: var(--primary-color);
-    }
-
-    .desktop-nav a::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: var(--primary-color);
-        transition: width 0.3s ease;
-    }
-
-    .desktop-nav a:hover::after {
-        width: 100%;
-    }
-
-    /* Mobile Navigation */
-    .menu-btn {
-        font-size: 1.5rem;
-        background: none;
-        border: none;
-        color: #fff;
-        cursor: pointer;
-        display: none;
-        transition: all 0.3s ease;
-        z-index: 101;
-    }
-
-    .dropdown-menu {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 70%;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(10px);
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 5rem 2rem;
-        transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
-        z-index: 100;
-    }
-
-    .dropdown-menu.active {
-        right: 0;
-    }
-
-    .dropdown-menu a {
-        color: #fff;
-        text-decoration: none;
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-        padding: 0.5rem 1rem;
-        border-radius: 5px;
-    }
-
-    .dropdown-menu a:hover {
-        background: rgba(0, 216, 255, 0.1);
-        color: var(--primary-color);
-    }
-
-    /* Main Content */
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: calc(100vh - 72px);
-        padding: 2rem;
-    }
-
-    .profile-card {
-        background: rgba(0, 20, 20, 0.85);
-        border-radius: 20px;
-        padding: 2.5rem;
-        display: flex;
-        align-items: center;
-        max-width: 1000px;
-        width: 100%;
-        gap: 3rem;
-        box-shadow: 0 0 30px rgba(0, 216, 255, 0.3);
-        border: 1px solid rgba(0, 216, 255, 0.2);
-    }
-
-    .profile-content {
-        flex: 1;
-    }
-
-    .profile-content h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-        color: #fff;
-    }
-
-    .typing-effect {
-        color: var(--primary-color);
-        font-size: 1.3rem;
-        height: 1.8rem;
-        border-right: 2px solid var(--primary-color);
-        white-space: nowrap;
-        overflow: hidden;
-        margin-bottom: 1.5rem;
-        animation: blinkCursor 0.8s infinite;
-    }
-
-    @keyframes blinkCursor {
-        0%, 50% { border-color: var(--primary-color); }
-        51%, 100% { border-color: transparent; }
-    }
-
-    .profile-content p {
-        margin-bottom: 1.8rem;
-        line-height: 1.6;
-        color: #ccc;
-    }
-
-    .btn {
-        display: inline-block;
-        background: var(--primary-color);
-        color: #000;
-        padding: 0.8rem 1.8rem;
-        border-radius: 30px;
-        text-decoration: none;
-        font-weight: bold;
-        box-shadow: 0 0 10px var(--primary-color);
-        transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-        font-size: 1rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .btn:hover {
-        background: #fff;
-        box-shadow: 0 0 20px var(--secondary-color);
-        transform: translateY(-2px);
-    }
-
-    .social-links {
-        display: flex;
-        gap: 1.2rem;
-    }
-
-    .social-links a {
-        color: #fff;
-        font-size: 1.5rem;
-        transition: all 0.3s ease;
-        text-decoration: none;
-    }
-
-    .social-links a:hover {
-        color: var(--primary-color);
-        transform: translateY(-3px);
-    }
-
-    .profile-image {
-        flex: 0 0 auto;
-        width: 250px;
-        height: 250px;
-        border-radius: 50%;
-        overflow: hidden;
-        border: 3px solid var(--primary-color);
-        box-shadow: 0 0 25px var(--primary-color);
-        position: relative;
-        animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-15px); }
-    }
-
-    .profile-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: all 0.5s ease;
-    }
-
-    .profile-image:hover img {
-        transform: scale(1.05);
-    }
-
-    /* Responsive */
-    @media (max-width: 992px) {
-        .profile-card {
-            flex-direction: column-reverse;
-            text-align: center;
-            padding: 2rem;
-        }
-        
-        .profile-content {
-            margin-top: 2rem;
-        }
-        
-        .social-links {
-            justify-content: center;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .desktop-nav {
-            display: none;
-        }
-        
-        .menu-btn {
-            display: block;
-        }
-        
-        .profile-card {
-            padding: 1.5rem;
-        }
-        
-        .profile-image {
-            width: 200px;
-            height: 200px;
-        }
-        
-        .profile-content h1 {
-            font-size: 2rem;
-        }
-    }
-
-    @media (max-width: 576px) {
-        header {
-            padding: 1rem;
-        }
-        
-        .dropdown-menu {
-            width: 80%;
-        }
-        
-        .profile-image {
-            width: 180px;
-            height: 180px;
-        }
-    }
-</style>
+  </script>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800">
 
-<div class="stars-bg"></div>
+  <!-- Loading Screen -->
+  <div id="loadingScreen" class="fixed inset-0 bg-gray-900 flex flex-col justify-center items-center z-50">
+    <div class="loader"></div>
+    <p class="text-white mt-4 text-lg font-semibold blink">Wait... Loading to Web ZyyTsuneID</p>
+  </div>
 
-<header>
-    <div class="logo">Zyy Developer</div>
-    <nav class="desktop-nav">
-        <a href="index.html">Home</a>
-        <a href="payment.html">Payment</a>
-        <a href="produk.html">Produk</a>
-        <a href="panel.html">Panel Bot</a>
-        <a href="about.html">About</a>
-    </nav>
-    <button class="menu-btn" id="menuToggle">☰</button>
-    <div class="dropdown-menu" id="mobileMenu">
-        <a href="index.html">Home</a>
-        <a href="payment.html">Payment</a>
-        <a href="produk.html">Produk</a>
-        <a href="panel.html">Panel Bot</a>
-        <a href="about.html">About</a>
-    </div>
-</header>
+  <!-- Main Content -->
+  <div id="mainContent" class="hidden">
 
-<div class="container">
-    <div class="profile-card">
-        <div class="profile-content">
-            <h1>Hi, I'm Zyy</h1>
-            <div class="typing-effect" id="typingText"></div>
-            <p>Professional developer specializing in web applications and automation tools. With years of experience creating high-performance solutions for clients worldwide.</p>
-            <a href="#" class="btn">Hire Me</a>
-            <div class="social-links">
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Github"><i class="fab fa-github"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="#" aria-label="Email"><i class="fas fa-envelope"></i></a>
-            </div>
-        </div>
-        <div class="profile-image">
-            <img src="https://files.catbox.moe/jevoog.jpg" alt="Zyy Developer Portrait - Asian male developer smiling in professional attire">
-        </div>
-    </div>
-</div>
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-40">
+      <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-blue-600">ZyyTsuneID Website</h1>
 
-<!-- Font Awesome for icons -->
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+        <!-- Menu Desktop -->
+        <nav class="hidden md:flex space-x-8 font-semibold">
+          <a href="#index" class="hover:text-blue-500">Home</a>
+          <a href="#produk" class="hover:text-blue-500">Produk</a>
+          <a href="#payment" class="hover:text-blue-500">Payment</a>
+          <a href="#panel" class="hover:text-blue-500">Panel</a>
+        </nav>
 
-<script>
-    // Mobile Menu Toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    
-    menuToggle.addEventListener('click', () => {
-        mobileMenu.classList.toggle('active');
-        menuToggle.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
-    });
+        <!-- Burger Menu -->
+        <button class="md:hidden focus:outline-none" onclick="toggleMenu()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
 
-    // Typing Effect
-    const texts = ["Web Developer", "Bot Creator", "UI/UX Designer", "Problem Solver"];
-    let count = 0;
-    let index = 0;
-    let currentText = '';
-    let letter = '';
-    let isDeleting = false;
-    let typingSpeed = 100;
-    
-    function type() {
-        if (count === texts.length) {
-            count = 0;
-        }
-        
-        currentText = texts[count];
-        
-        if (isDeleting) {
-            letter = currentText.substring(0, index - 1);
-            index--;
-            typingSpeed = 50;
-        } else {
-            letter = currentText.substring(0, index + 1);
-            index++;
-            typingSpeed = 100;
-        }
-        
-        document.getElementById('typingText').textContent = letter;
-        
-        if (!isDeleting && letter === currentText) {
-            isDeleting = true;
-            typingSpeed = 1500;
-        } else if (isDeleting && letter === '') {
-            isDeleting = false;
-            count++;
-            typingSpeed = 500;
-        }
-        
-        setTimeout(type, typingSpeed);
-    }
-    
-    // Start typing effect
-    document.addEventListener('DOMContentLoaded', type);
-    
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop,
-                    behavior: 'smooth'
-                });
-                
-                // Close mobile menu if open
-                if (mobileMenu.classList.contains('active')) {
-                    mobileMenu.classList.remove('active');
-                    menuToggle.textContent = '☰';
-                }
-            }
-        });
-    });
-</script>
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="md:hidden hidden bg-white border-t shadow-md text-center">
+        <a href="#index" class="block py-4 font-semibold hover:bg-gray-100">Home</a>
+        <a href="#produk" class="block py-4 font-semibold hover:bg-gray-100">Produk</a>
+        <a href="#payment" class="block py-4 font-semibold hover:bg-gray-100">Payment</a>
+        <a href="#panel" class="block py-4 font-semibold hover:bg-gray-100">Panel</a>
+      </div>
+    </header>
 
+    <!-- Hero -->
+    <section id="index" class="relative text-white py-20 text-center">
+      <div class="absolute inset-0">
+        <img src="https://files.catbox.moe/k8grmd.jpg" alt="Background" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black/40"></div>
+      </div>
+      <div class="relative z-10">
+        <img src="https://files.catbox.moe/mgpqma.jpg" alt="Profil" class="mx-auto w-40 h-40 object-cover rounded-full shadow-lg border-4 border-white mb-4">
+        <h2 class="text-3xl font-bold blink">Selamat Datang di Web Saya</h2>
+        <p class="mt-3 text-lg blink">Berbagi cerita, inspirasi, dan ilmu setiap hari ✨</p>
+      </div>
+    </section>
+
+    <!-- Artikel -->
+    <main class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
+      <article id="produk" class="bg-white rounded-2xl shadow hover:shadow-xl transition p-5">
+        <img src="https://files.catbox.moe/beuw4s.jpg" class="rounded-xl mb-4" alt="Artikel 1">
+        <h3 class="text-xl font-bold">Produk</h3>
+        <p class="text-gray-600 mt-2">Semua Produk Yang Di Jual</p>
+        <a href="#produk">
+          <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Lihat</button>
+        </a>
+      </article>
+
+      <article id="panel" class="bg-white rounded-2xl shadow hover:shadow-xl transition p-5">
+        <img src="https://files.catbox.moe/1lgywj.jpg" class="rounded-xl mb-4" alt="Artikel 2">
+        <h3 class="text-xl font-bold">Panel Bot</h3>
+        <p class="text-gray-600 mt-2">Panel.Pteroductly Yang murah meriah</p>
+        <a href="#panel">
+          <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Lihat</button>
+        </a>
+      </article>
+
+      <article id="payment" class="bg-white rounded-2xl shadow hover:shadow-xl transition p-5">
+        <img src="https://files.catbox.moe/26qbz3.jpg" class="rounded-xl mb-4" alt="Artikel 3">
+        <h3 class="text-xl font-bold">Payment</h3>
+        <p class="text-gray-600 mt-2">Web Payment Simple</p>
+        <a href="#payment">
+          <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Lihat</button>
+        </a>
+      </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6 text-center mt-10">
+      <p>© 2025 MyWeb. Dibuat dengan ❤️ oleh Saya.</p>
+    </footer>
+
+  </div>
 </body>
-</html>
+</html>  
